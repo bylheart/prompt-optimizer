@@ -1,4 +1,4 @@
-name: Sync Fork from maillab/cloud-mail
+name: Sync Fork from linshenkx/prompt-optimizer
 on:
   schedule:
     - cron: "0 1 * * *"   # 每天 UTC 1点（北京时间 9点）自动同步
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: tgymnich/fork-sync@v2.0
         with:
-          owner: maillab
-          repo: cloud-mail
-          base: main
-          head: main
+          owner: linshenkx
+          repo: prompt-optimizer
+          base: develop
+          head: develop
