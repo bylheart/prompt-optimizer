@@ -1,0 +1,26 @@
+name: 自动同步上游tgymnich/fork-sync仓库 # [需改] 替换为你的同步项目名称
+on:
+  schedule:
+    - cron: '0 20 * * *' # [需改] UTC时间，北京时间=UTC+8，当前示例为每天北京时间凌晨4点
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-fork:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: 执行同步
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # ============== 配置说明 ==============
+          # 参数1: --source 后面填上游仓库格式：所有者/仓库名:上游分支名 [需改]
+          # 参数2: -b 后面填你自己仓库要同步的目标分支名 [需改]
+          # 参数3: 末尾加 --force 开启强制覆盖（可删除，会丢失你自己的改动）
+          # =====================================
+          gh repo sync ${{ github.repository }} --source tgymnich/fork-sync:master -b master --force
+
+#进入你的仓库 → 「Settings」→ 左侧「Actions」→「General」→ 找到「Workflow permissions」→ 选择「Read and write permissions」→ 保存即可
